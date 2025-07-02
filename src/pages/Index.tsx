@@ -18,8 +18,6 @@ const Index = () => {
       <NotificationBanner />
       <HeroSection />
       <StatsSection />
-      {/* Remover temporariamente outras seções para manter fiel ao original */}
-      {/*
       <AboutSection />
       <div id="how-it-works-section">
         <HowItWorksSection />
@@ -35,7 +33,6 @@ const Index = () => {
       <div id="cta-section">
         <CTASection />
       </div>
-      */}
       <Footer />
     </div>
   );
