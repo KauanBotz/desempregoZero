@@ -179,16 +179,16 @@ const DashboardPage = () => {
   const filteredCandidates = candidates.filter(candidate => {
     const matchesSearch = candidate.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          candidate.email.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesArea = !areaFilter || candidate.area === areaFilter;
-    const matchesStatus = !statusFilter || candidate.status === statusFilter;
+    const matchesArea = !areaFilter || areaFilter === "all-areas" || candidate.area === areaFilter;
+    const matchesStatus = !statusFilter || statusFilter === "all-situations" || candidate.status === statusFilter;
     const matchesFavorites = !showFavorites || candidate.isFavorite;
     
     return matchesSearch && matchesArea && matchesStatus && matchesFavorites;
   });
 
   const clearFilters = () => {
-    setAreaFilter("");
-    setStatusFilter("");
+    setAreaFilter("all-areas");
+    setStatusFilter("all-situations");
     setShowFavorites(false);
   };
 
@@ -259,7 +259,7 @@ const DashboardPage = () => {
                 <SelectValue placeholder="Não tenho preferência" />
               </SelectTrigger>
               <SelectContent className="bg-background border border-border shadow-lg z-50">
-                <SelectItem value="">Todas as áreas</SelectItem>
+                <SelectItem value="all-areas">Todas as áreas</SelectItem>
                 <SelectItem value="Administrativo">Administrativo</SelectItem>
                 <SelectItem value="Tecnologia da Informação">Tecnologia da Informação</SelectItem>
                 <SelectItem value="Comercial/Vendas">Comercial/Vendas</SelectItem>
@@ -274,7 +274,7 @@ const DashboardPage = () => {
                 <SelectValue placeholder="Situação" />
               </SelectTrigger>
               <SelectContent className="bg-background border border-border shadow-lg z-50">
-                <SelectItem value="">Todas as situações</SelectItem>
+                <SelectItem value="all-situations">Todas as situações</SelectItem>
                 <SelectItem value="Desempregado">Desempregado</SelectItem>
                 <SelectItem value="Primeiro emprego">Primeiro emprego</SelectItem>
                 <SelectItem value="Empregado insatisfeito">Empregado insatisfeito</SelectItem>
