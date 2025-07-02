@@ -7,6 +7,9 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
+import { useCandidates } from "@/hooks/useCandidates";
+import { useLogout } from "@/hooks/useAuth";
+import { Candidate } from "@/types/api";
 import { 
   Search,
   Star,
@@ -24,20 +27,17 @@ import {
   Edit,
   ChevronDown,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Loader2
 } from "lucide-react";
 
-interface Candidate {
+interface ExtendedCandidate extends Omit<Candidate, 'id'> {
   id: string;
-  name: string;
-  email: string;
-  phone: string;
-  city: string;
-  area: string;
-  status: "Desempregado" | "Primeiro emprego" | "Empregado insatisfeito";
-  registerDate: string;
-  isFavorite: boolean;
-  experience: string;
+  city?: string;
+  area?: string;
+  status?: "Desempregado" | "Primeiro emprego" | "Empregado insatisfeito";
+  registerDate?: string;
+  isFavorite?: boolean;
   curriculumUrl?: string;
   contactStatus?: "none" | "contacted" | "hired";
   contactedBy?: string;
@@ -46,133 +46,40 @@ interface Candidate {
 const DashboardPage = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { logout } = useLogout();
   const [userEmail, setUserEmail] = useState("");
   const [userName, setUserName] = useState("Kauan Debique");
   const [searchTerm, setSearchTerm] = useState("");
   const [areaFilter, setAreaFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const [showFavorites, setShowFavorites] = useState(false);
-  const [selectedCandidate, setSelectedCandidate] = useState<Candidate | null>(null);
+  const [selectedCandidate, setSelectedCandidate] = useState<ExtendedCandidate | null>(null);
   const [showProfileEdit, setShowProfileEdit] = useState(false);
   const [showMenuDropdown, setShowMenuDropdown] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [localCandidates, setLocalCandidates] = useState<ExtendedCandidate[]>([]);
   const candidatesPerPage = 6;
 
-  const [candidates, setCandidates] = useState<Candidate[]>([
-    {
-      id: "1",
-      name: "Maria Silva",
-      email: "maria.silva@email.com",
-      phone: "(11) 98765-4321",
-      city: "São Paulo, SP",
-      area: "Administrativo",
-      status: "Desempregado",
-      registerDate: "15/05/2025",
-      isFavorite: false,
-      experience: "Trabalhou por 3 anos como assistente administrativa, responsável por controle de documentos, suporte à gerência e atendimento telefônico. Antes disso, foi recepcionista por 1 ano.",
-      curriculumUrl: "curriculo_maria_silva.pdf",
-      contactStatus: "none"
-    },
-    {
-      id: "2",
-      name: "João Oliveira",
-      email: "joao.oliveira@email.com",
-      phone: "(11) 99876-5432",
-      city: "São Paulo, SP",
-      area: "Tecnologia da Informação",
-      status: "Primeiro emprego",
-      registerDate: "20/05/2025",
-      isFavorite: false,
-      experience: "Recém-formado em Análise e Desenvolvimento de Sistemas. Possui conhecimentos em React, Node.js e banco de dados. Realizou projetos acadêmicos e estágios.",
-      curriculumUrl: "curriculo_joao_oliveira.pdf",
-      contactStatus: "none"
-    },
-    {
-      id: "3",
-      name: "Ana Souza",
-      email: "ana.souza@email.com",
-      phone: "(11) 95555-1234",
-      city: "São Paulo, SP",
-      area: "Comercial/Vendas",
-      status: "Empregado insatisfeito",
-      registerDate: "18/05/2025",
-      isFavorite: true,
-      experience: "5 anos de experiência em vendas no varejo. Especialista em atendimento ao cliente e metas de vendas. Busca novos desafios na área comercial.",
-      curriculumUrl: "curriculo_ana_souza.pdf",
-      contactStatus: "contacted",
-      contactedBy: "teste@minc.com.br"
-    },
-    {
-      id: "4",
-      name: "Carlos Mendes",
-      email: "carlos.mendes@email.com",
-      phone: "(11) 94444-5678",
-      city: "São Paulo, SP",
-      area: "Logística",
-      status: "Desempregado",
-      registerDate: "22/05/2025",
-      isFavorite: false,
-      experience: "4 anos de experiência em logística e distribuição. Conhecimento em gestão de estoque e transporte. Certificação em operação de empilhadeira.",
-      curriculumUrl: "curriculo_carlos_mendes.pdf",
-      contactStatus: "none"
-    },
-    {
-      id: "5",
-      name: "Juliana Costa",
-      email: "juliana.costa@email.com",
-      phone: "(11) 93333-9876",
-      city: "São Paulo, SP",
-      area: "Saúde",
-      status: "Empregado insatisfeito",
-      registerDate: "25/05/2025",
-      isFavorite: false,
-      experience: "Técnica em enfermagem com 6 anos de experiência. Trabalhou em hospitais e clínicas. Busca oportunidade de crescimento profissional.",
-      curriculumUrl: "curriculo_juliana_costa.pdf",
-      contactStatus: "none"
-    },
-    {
-      id: "6",
-      name: "Pedro Santos",
-      email: "pedro.santos@email.com",
-      phone: "(11) 92222-3456",
-      city: "São Paulo, SP",
-      area: "Educação",
-      status: "Primeiro emprego",
-      registerDate: "28/05/2025",
-      isFavorite: true,
-      experience: "Recém-formado em Pedagogia. Possui experiência em estágios supervisionados e projetos educacionais. Busca primeira oportunidade como professor.",
-      curriculumUrl: "curriculo_pedro_santos.pdf",
-      contactStatus: "none"
-    },
-    {
-      id: "7",
-      name: "Fernanda Lima",
-      email: "fernanda.lima@email.com",
-      phone: "(11) 91111-2345",
-      city: "São Paulo, SP",
-      area: "Marketing",
-      status: "Desempregado",
-      registerDate: "30/05/2025",
-      isFavorite: false,
-      experience: "3 anos de experiência em marketing digital e gestão de redes sociais. Conhecimento em Google Ads e Facebook Ads.",
-      curriculumUrl: "curriculo_fernanda_lima.pdf",
-      contactStatus: "none"
-    },
-    {
-      id: "8",
-      name: "Ricardo Moura",
-      email: "ricardo.moura@email.com",
-      phone: "(11) 98888-7777",
-      city: "São Paulo, SP",
-      area: "Financeiro",
-      status: "Empregado insatisfeito",
-      registerDate: "02/06/2025",
-      isFavorite: false,
-      experience: "5 anos de experiência em controladoria e análise financeira. Formação em Ciências Contábeis.",
-      curriculumUrl: "curriculo_ricardo_moura.pdf",
-      contactStatus: "none"
+  // Fetch candidates from API
+  const { data: apiCandidates = [], isLoading, error } = useCandidates();
+
+  // Process API data to match local interface
+  useEffect(() => {
+    if (apiCandidates.length > 0) {
+      const processedCandidates: ExtendedCandidate[] = apiCandidates.map((candidate: Candidate) => ({
+        ...candidate,
+        id: candidate.id.toString(),
+        city: "São Paulo, SP", // Default value - could be expanded
+        area: "Geral", // Default value - could be expanded
+        status: "Desempregado" as const, // Default value - could be expanded
+        registerDate: new Date(candidate.created_at).toLocaleDateString('pt-BR'),
+        isFavorite: false,
+        curriculumUrl: candidate.resume || "curriculo.pdf",
+        contactStatus: "none" as const,
+      }));
+      setLocalCandidates(processedCandidates);
     }
-  ]);
+  }, [apiCandidates]);
 
   useEffect(() => {
     // Verificar se está autenticado
@@ -190,19 +97,15 @@ const DashboardPage = () => {
   }, [navigate]);
 
   const handleLogout = () => {
-    localStorage.removeItem("isAuthenticated");
-    localStorage.removeItem("userEmail");
-    toast({
-      title: "Logout realizado",
-      description: "Você foi desconectado com sucesso.",
-    });
+    logout();
     navigate("/");
   };
 
-  const toggleFavorite = (candidateId: string) => {
-    setCandidates(prev => 
+  const toggleFavorite = (candidateId: string | number) => {
+    const id = candidateId.toString();
+    setLocalCandidates(prev => 
       prev.map(candidate => 
-        candidate.id === candidateId 
+        candidate.id === id 
           ? { ...candidate, isFavorite: !candidate.isFavorite }
           : candidate
       )
@@ -223,7 +126,7 @@ const DashboardPage = () => {
   };
 
   // Filtrar candidatos contratados
-  const availableCandidates = candidates.filter(candidate => candidate.contactStatus !== "hired");
+  const availableCandidates = localCandidates.filter(candidate => candidate.contactStatus !== "hired");
   
   const filteredCandidates = availableCandidates.filter(candidate => {
     const matchesSearch = candidate.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -246,10 +149,11 @@ const DashboardPage = () => {
     setShowFavorites(false);
   };
 
-  const handleContactCandidate = (candidateId: string) => {
-    setCandidates(prev => 
+  const handleContactCandidate = (candidateId: string | number) => {
+    const id = candidateId.toString();
+    setLocalCandidates(prev => 
       prev.map(candidate => 
-        candidate.id === candidateId 
+        candidate.id === id 
           ? { ...candidate, contactStatus: "contacted", contactedBy: userEmail }
           : candidate
       )
@@ -261,10 +165,11 @@ const DashboardPage = () => {
     });
   };
 
-  const handleHireCandidate = (candidateId: string) => {
-    setCandidates(prev => 
+  const handleHireCandidate = (candidateId: string | number) => {
+    const id = candidateId.toString();
+    setLocalCandidates(prev => 
       prev.map(candidate => 
-        candidate.id === candidateId 
+        candidate.id === id 
           ? { ...candidate, contactStatus: "hired", contactedBy: userEmail }
           : candidate
       )
@@ -294,6 +199,25 @@ const DashboardPage = () => {
     });
   };
 
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold mb-2">Erro ao carregar candidatos</h2>
+          <p className="text-muted-foreground">Tente novamente mais tarde</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -311,6 +235,10 @@ const DashboardPage = () => {
             </div>
             
             <div className="flex items-center space-x-2 relative">
+              <Button onClick={() => navigate("/vagas")}>
+                <Briefcase className="w-4 h-4 mr-2" />
+                Vagas
+              </Button>
               <Button variant="ghost" size="sm" onClick={handleLogout}>
                 <LogOut className="w-4 h-4 mr-2" />
                 Sair

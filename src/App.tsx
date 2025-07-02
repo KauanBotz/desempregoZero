@@ -9,6 +9,7 @@ import CandidatesPage from "./pages/CandidatesPage";
 import CadastroPage from "./pages/CadastroPage";
 import ParceirosPage from "./pages/ParceirosPage";
 import DashboardPage from "./pages/DashboardPage";
+import JobsPage from "./pages/JobsPage";
 import ContatoPage from "./pages/ContatoPage";
 import NotFound from "./pages/NotFound";
 
@@ -23,6 +24,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/candidatos" element={<DashboardPage />} />
+          <Route path="/vagas" element={<JobsPage />} />
           <Route path="/segunda-pagina" element={<SecondPage />} />
           <Route path="/igreja" element={<SecondPage />} />
           <Route path="/como-funciona" element={<SecondPage />} />

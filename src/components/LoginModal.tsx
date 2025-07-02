@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useToast } from "@/hooks/use-toast";
+import { useLogin } from "@/hooks/useAuth";
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -14,37 +14,22 @@ interface LoginModalProps {
 const LoginModal = ({ isOpen, onClose, onLogin }: LoginModalProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const { toast } = useToast();
+  const loginMutation = useLogin();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-
-    // Fake login - credenciais específicas
-    if (email === "teste@minc.com.br" && password === "minc5913") {
-      // Simular um pequeno delay
-      setTimeout(() => {
-        localStorage.setItem("isAuthenticated", "true");
-        localStorage.setItem("userEmail", email);
-        toast({
-          title: "Login realizado com sucesso!",
-          description: "Bem-vindo ao sistema Desemprego Zero.",
-        });
-        onLogin();
-        onClose();
-        setIsLoading(false);
-      }, 1000);
-    } else {
-      setTimeout(() => {
-        toast({
-          title: "Erro no login",
-          description: "Email ou senha incorretos. Use: teste@minc.com.br / minc5913",
-          variant: "destructive",
-        });
-        setIsLoading(false);
-      }, 1000);
-    }
+    
+    loginMutation.mutate(
+      { email, password },
+      {
+        onSuccess: () => {
+          onLogin();
+          onClose();
+          setEmail("");
+          setPassword("");
+        },
+      }
+    );
   };
 
   return (
@@ -90,9 +75,9 @@ const LoginModal = ({ isOpen, onClose, onLogin }: LoginModalProps) => {
           <Button 
             type="submit" 
             className="w-full" 
-            disabled={isLoading}
+            disabled={loginMutation.isPending}
           >
-            {isLoading ? "Entrando..." : "Entrar"}
+            {loginMutation.isPending ? "Entrando..." : "Entrar"}
           </Button>
         </form>
       </DialogContent>
