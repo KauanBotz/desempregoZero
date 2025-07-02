@@ -20,9 +20,22 @@ export const useLogin = () => {
       });
     },
     onError: (error: any) => {
+      console.log("Login error details:", {
+        status: error.response?.status,
+        statusText: error.response?.statusText,
+        data: error.response?.data,
+        message: error.message,
+        fullError: error
+      });
+      
+      const errorMessage = error.response?.data?.message || 
+                          error.response?.data?.error || 
+                          `Erro ${error.response?.status}: ${error.response?.statusText}` ||
+                          "Credenciais inválidas";
+      
       toast({
         title: "Erro no login",
-        description: error.response?.data?.message || "Credenciais inválidas",
+        description: errorMessage,
         variant: "destructive",
       });
     },
