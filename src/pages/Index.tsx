@@ -2,6 +2,14 @@ import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import NotificationBanner from "@/components/NotificationBanner";
 import StatsSection from "@/components/StatsSection";
+import AboutSection from "@/components/AboutSection";
+import HowItWorksSection from "@/components/HowItWorksSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
+import JobsSection from "@/components/JobsSection";
+import PartnersSection from "@/components/PartnersSection";
+import FAQSection from "@/components/FAQSection";
+import CTASection from "@/components/CTASection";
+import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
@@ -10,6 +18,18 @@ const Index = () => {
       <NotificationBanner />
       <HeroSection />
       <StatsSection />
+      <AboutSection />
+      <HowItWorksSection />
+      <TestimonialsSection />
+      <JobsSection />
+      <div id="partners-section">
+        <PartnersSection />
+      </div>
+      <FAQSection />
+      <div id="cta-section">
+        <CTASection />
+      </div>
+      <Footer />
     </div>
   );
 };

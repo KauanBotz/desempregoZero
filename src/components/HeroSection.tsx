@@ -30,6 +30,7 @@ const HeroSection = () => {
                 size="lg" 
                 variant="hero"
                 className="px-8"
+                onClick={() => document.getElementById('cta-section')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 Quero uma oportunidade
               </Button>
@@ -37,6 +38,7 @@ const HeroSection = () => {
                 size="lg" 
                 variant="outline-white"
                 className="font-semibold px-8"
+                onClick={() => document.getElementById('partners-section')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 Seja um parceiro
               </Button>
