@@ -39,7 +39,7 @@ const HowItWorksSection = () => {
                 
                 <h3 className="text-2xl lg:text-3xl font-bold mb-4 text-foreground">Cadastre-se</h3>
                 <p className="text-muted-foreground text-base lg:text-lg leading-relaxed">
-                  Crie seu perfil completo com suas informações pessoais, experiências profissionais e áreas de interesse
+                  Preencha o formulário com seus dados pessoais e profissionais para começarmos a buscar oportunidades para você.
                 </p>
                 
                 {/* Decorative element */}
@@ -62,9 +62,9 @@ const HowItWorksSection = () => {
                   <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-primary/20 rounded-full animate-pulse delay-450"></div>
                 </div>
                 
-                <h3 className="text-2xl lg:text-3xl font-bold mb-4 text-foreground">Encontre Vagas</h3>
+                <h3 className="text-2xl lg:text-3xl font-bold mb-4 text-foreground">Receba Oportunidades</h3>
                 <p className="text-muted-foreground text-base lg:text-lg leading-relaxed">
-                  Navegue pelas oportunidades disponíveis e candidate-se às vagas que mais combinam com você
+                  Nossa equipe da Minha Igreja na Cidade irá analisar seu perfil e conectá-lo com as melhores oportunidades disponíveis em nossa rede.
                 </p>
                 
                 {/* Decorative element */}
@@ -87,9 +87,9 @@ const HowItWorksSection = () => {
                   <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-primary/20 rounded-full animate-pulse delay-600"></div>
                 </div>
                 
-                <h3 className="text-2xl lg:text-3xl font-bold mb-4 text-foreground">Seja Contratado</h3>
+                <h3 className="text-2xl lg:text-3xl font-bold mb-4 text-foreground">Conquiste sua Vaga</h3>
                 <p className="text-muted-foreground text-base lg:text-lg leading-relaxed">
-                  Receba o contato direto das empresas interessadas e inicie sua nova jornada profissional
+                  Receba orientação para entrevistas e acompanhamento até a contratação e durante o período de adaptação.
                 </p>
                 
                 {/* Decorative element */}
