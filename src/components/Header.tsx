@@ -23,24 +23,26 @@ const Header = () => {
 
             {/* Navigation Links */}
             <div className="hidden md:flex items-center space-x-8">
-              <Link 
-                to="/igreja" 
-                className="text-foreground hover:text-primary transition-colors"
-              >
-                Minha Igreja na Cidade
-              </Link>
-              <Link 
-                to="/como-funciona" 
+              <button 
+                onClick={() => {
+                  document.getElementById('how-it-works-section')?.scrollIntoView({ 
+                    behavior: 'smooth' 
+                  });
+                }}
                 className="text-foreground hover:text-primary transition-colors"
               >
                 Como Funciona
-              </Link>
-              <Link 
-                to="/depoimentos" 
+              </button>
+              <button 
+                onClick={() => {
+                  document.getElementById('testimonials-section')?.scrollIntoView({ 
+                    behavior: 'smooth' 
+                  });
+                }}
                 className="text-foreground hover:text-primary transition-colors"
               >
                 Depoimentos
-              </Link>
+              </button>
               <Link 
                 to="/cadastre-se" 
                 className="text-foreground hover:text-primary transition-colors"

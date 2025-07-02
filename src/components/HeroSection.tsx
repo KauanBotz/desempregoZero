@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 const HeroSection = () => {
+  const navigate = useNavigate();
   return (
     <section className="relative bg-hero-bg text-hero-text overflow-hidden">
       <div className="container mx-auto px-4 py-16 md:py-24">
@@ -30,7 +32,7 @@ const HeroSection = () => {
                 size="lg" 
                 variant="hero"
                 className="px-8"
-                onClick={() => document.getElementById('cta-section')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() => navigate("/cadastre-se")}
               >
                 Quero uma oportunidade
               </Button>
@@ -38,7 +40,7 @@ const HeroSection = () => {
                 size="lg" 
                 variant="outline-white"
                 className="font-semibold px-8"
-                onClick={() => document.getElementById('partners-section')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() => navigate("/parceiros")}
               >
                 Seja um parceiro
               </Button>
