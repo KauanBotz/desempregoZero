@@ -26,7 +26,21 @@ export default {
 				foreground: 'hsl(var(--foreground))',
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
+					foreground: 'hsl(var(--primary-foreground))',
+					light: 'hsl(var(--primary-light))'
+				},
+				hero: {
+					bg: 'hsl(var(--hero-bg))',
+					text: 'hsl(var(--hero-text))'
+				},
+				success: {
+					DEFAULT: 'hsl(var(--success))',
+					foreground: 'hsl(var(--success-foreground))',
+					light: 'hsl(var(--success-light))'
+				},
+				stats: {
+					bg: 'hsl(var(--stats-bg))',
+					text: 'hsl(var(--stats-text))'
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',

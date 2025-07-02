@@ -17,8 +17,23 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Desemprego Zero Brand Colors */
+    --primary: 22 100% 52%; /* Orange #FF6B00 */
+    --primary-foreground: 0 0% 100%; /* White text on orange */
+    --primary-light: 22 100% 60%; /* Lighter orange for hover */
+    
+    /* Hero Section Orange Background */
+    --hero-bg: 22 100% 52%; /* Main orange */
+    --hero-text: 0 0% 100%; /* White text */
+    
+    /* Success Green */
+    --success: 142 71% 45%; /* Green for notifications */
+    --success-foreground: 0 0% 100%;
+    --success-light: 142 71% 85%; /* Light green background */
+    
+    /* Stats Cards */
+    --stats-bg: 35 43% 92%; /* Beige background */
+    --stats-text: 22 100% 52%; /* Orange text */
 
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
