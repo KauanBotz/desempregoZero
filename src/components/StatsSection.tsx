@@ -34,37 +34,22 @@ const StatsSection = () => {
   }, []);
 
   return (
-    <section className="py-16 bg-background">
+    <section className="py-16 bg-stats-bg">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Pessoas Empregadas */}
-          <div className="text-center bg-stats-bg rounded-2xl p-8">
-            <div className="text-6xl font-bold text-stats-text mb-4">
-              {stats.peopleEmployed}
-            </div>
-            <p className="text-lg font-medium text-foreground">
-              Pessoas empregadas
-            </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+          <div className="bg-white rounded-lg p-8 shadow-sm">
+            <div className="text-6xl font-bold text-stats-text mb-2">0</div>
+            <div className="text-gray-600 font-medium">Pessoas empregadas</div>
           </div>
-
-          {/* Empresas Parceiras */}
-          <div className="text-center bg-stats-bg rounded-2xl p-8">
-            <div className="text-6xl font-bold text-stats-text mb-4">
-              {stats.partnerCompanies}
-            </div>
-            <p className="text-lg font-medium text-foreground">
-              Empresas parceiras
-            </p>
+          
+          <div className="bg-white rounded-lg p-8 shadow-sm">
+            <div className="text-6xl font-bold text-stats-text mb-2">0</div>
+            <div className="text-gray-600 font-medium">Empresas parceiras</div>
           </div>
-
-          {/* Taxa de Satisfação */}
-          <div className="text-center bg-stats-bg rounded-2xl p-8">
-            <div className="text-6xl font-bold text-stats-text mb-4">
-              {stats.satisfactionRate}
-            </div>
-            <p className="text-lg font-medium text-foreground">
-              Taxa de satisfação (%)
-            </p>
+          
+          <div className="bg-white rounded-lg p-8 shadow-sm">
+            <div className="text-6xl font-bold text-stats-text mb-2">0</div>
+            <div className="text-gray-600 font-medium">Taxa de satisfação (%)</div>
           </div>
         </div>
       </div>

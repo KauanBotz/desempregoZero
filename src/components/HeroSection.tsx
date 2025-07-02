@@ -47,22 +47,21 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Right Content - Illustration */}
+          {/* Right Content - Simplified geometric illustration */}
           <div className="lg:w-1/2 flex justify-center">
             <div className="relative">
-              {/* Main Circle */}
-              <div className="w-80 h-80 md:w-96 md:h-96 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                {/* Inner Elements */}
-                <div className="space-y-4">
-                  <div className="w-64 h-12 bg-white/30 rounded-lg"></div>
-                  <div className="w-64 h-12 bg-white/30 rounded-lg"></div>
-                  <div className="w-32 h-8 bg-white/30 rounded-lg"></div>
+              {/* Main rounded rectangle */}
+              <div className="w-80 h-96 md:w-96 md:h-[420px] bg-white/20 backdrop-blur-sm rounded-2xl flex flex-col justify-center items-center p-8">
+                {/* Header circle */}
+                <div className="w-20 h-20 bg-white/30 rounded-full mb-6"></div>
+                
+                {/* Content bars */}
+                <div className="space-y-4 w-full">
+                  <div className="w-full h-8 bg-white/30 rounded-lg"></div>
+                  <div className="w-full h-8 bg-white/30 rounded-lg"></div>
+                  <div className="w-3/4 h-6 bg-white/30 rounded-lg"></div>
                 </div>
               </div>
-              
-              {/* Decorative Elements */}
-              <div className="absolute -top-4 -right-4 w-16 h-16 bg-white/30 rounded-full"></div>
-              <div className="absolute -bottom-6 -left-6 w-12 h-12 bg-white/20 rounded-full"></div>
             </div>
           </div>
         </div>

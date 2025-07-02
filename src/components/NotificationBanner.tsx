@@ -2,13 +2,15 @@ import { CheckCircle } from "lucide-react";
 
 const NotificationBanner = () => {
   return (
-    <div className="bg-success-light border-l-4 border-success py-3 px-4">
-      <div className="container mx-auto">
-        <div className="flex items-center">
-          <CheckCircle className="h-5 w-5 text-success mr-3" />
-          <p className="text-sm font-medium text-success">
-            Novas vagas disponíveis! Temos 15 novas oportunidades esta semana.
-          </p>
+    <div className="bg-success-light border border-success/20 py-3">
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-center text-center">
+          <div className="flex items-center space-x-2 text-success-foreground">
+            <div className="w-2 h-2 bg-success rounded-full"></div>
+            <span className="text-sm font-medium">
+              Novas vagas disponíveis! Temos 15 novas oportunidades esta semana.
+            </span>
+          </div>
         </div>
       </div>
     </div>
