@@ -8,6 +8,7 @@ import SecondPage from "./pages/SecondPage";
 import CandidatesPage from "./pages/CandidatesPage";
 import CadastroPage from "./pages/CadastroPage";
 import ParceirosPage from "./pages/ParceirosPage";
+import DashboardPage from "./pages/DashboardPage";
 import ContatoPage from "./pages/ContatoPage";
 import NotFound from "./pages/NotFound";
 
@@ -21,7 +22,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/candidatos" element={<CandidatesPage />} />
+          <Route path="/candidatos" element={<DashboardPage />} />
           <Route path="/segunda-pagina" element={<SecondPage />} />
           <Route path="/igreja" element={<SecondPage />} />
           <Route path="/como-funciona" element={<SecondPage />} />

@@ -3,7 +3,6 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { employmentAPI } from "@/lib/api";
 import { useToast } from "@/hooks/use-toast";
 
 interface LoginModalProps {
@@ -22,23 +21,29 @@ const LoginModal = ({ isOpen, onClose, onLogin }: LoginModalProps) => {
     e.preventDefault();
     setIsLoading(true);
 
-    try {
-      const response = await employmentAPI.login(email, password);
-      localStorage.setItem('auth_token', response.token);
-      toast({
-        title: "Login realizado com sucesso!",
-        description: "Bem-vindo de volta.",
-      });
-      onLogin();
-      onClose();
-    } catch (error) {
-      toast({
-        title: "Erro no login",
-        description: "Email ou senha incorretos.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
+    // Fake login - credenciais específicas
+    if (email === "teste@minc.com.br" && password === "minc5913") {
+      // Simular um pequeno delay
+      setTimeout(() => {
+        localStorage.setItem("isAuthenticated", "true");
+        localStorage.setItem("userEmail", email);
+        toast({
+          title: "Login realizado com sucesso!",
+          description: "Bem-vindo ao sistema Desemprego Zero.",
+        });
+        onLogin();
+        onClose();
+        setIsLoading(false);
+      }, 1000);
+    } else {
+      setTimeout(() => {
+        toast({
+          title: "Erro no login",
+          description: "Email ou senha incorretos. Use: teste@minc.com.br / minc5913",
+          variant: "destructive",
+        });
+        setIsLoading(false);
+      }, 1000);
     }
   };
 
@@ -57,7 +62,7 @@ const LoginModal = ({ isOpen, onClose, onLogin }: LoginModalProps) => {
             <Input
               id="email"
               type="email"
-              placeholder="seu@email.com"
+              placeholder="Digite seu e-mail"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -69,11 +74,17 @@ const LoginModal = ({ isOpen, onClose, onLogin }: LoginModalProps) => {
             <Input
               id="password"
               type="password"
-              placeholder="••••••••"
+              placeholder="Digite sua senha"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+          </div>
+
+          <div className="text-xs text-muted-foreground bg-muted p-3 rounded-md">
+            <strong>Login de teste:</strong><br />
+            Email: teste@minc.com.br<br />
+            Senha: minc5913
           </div>
 
           <Button 
@@ -84,10 +95,6 @@ const LoginModal = ({ isOpen, onClose, onLogin }: LoginModalProps) => {
             {isLoading ? "Entrando..." : "Entrar"}
           </Button>
         </form>
-
-        <div className="text-center text-sm text-muted-foreground">
-          <p>Não tem uma conta? Entre em contato conosco.</p>
-        </div>
       </DialogContent>
     </Dialog>
   );
