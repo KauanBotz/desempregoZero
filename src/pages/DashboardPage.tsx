@@ -20,7 +20,11 @@ import {
   MapPin,
   Download,
   CheckCircle,
-  UserCheck
+  UserCheck,
+  Edit,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight
 } from "lucide-react";
 
 interface Candidate {
@@ -35,17 +39,24 @@ interface Candidate {
   isFavorite: boolean;
   experience: string;
   curriculumUrl?: string;
+  contactStatus?: "none" | "contacted" | "hired";
+  contactedBy?: string;
 }
 
 const DashboardPage = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [userEmail, setUserEmail] = useState("");
+  const [userName, setUserName] = useState("Kauan Debique");
   const [searchTerm, setSearchTerm] = useState("");
   const [areaFilter, setAreaFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const [showFavorites, setShowFavorites] = useState(false);
   const [selectedCandidate, setSelectedCandidate] = useState<Candidate | null>(null);
+  const [showProfileEdit, setShowProfileEdit] = useState(false);
+  const [showMenuDropdown, setShowMenuDropdown] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const candidatesPerPage = 6;
 
   const [candidates, setCandidates] = useState<Candidate[]>([
     {
@@ -59,7 +70,8 @@ const DashboardPage = () => {
       registerDate: "15/05/2025",
       isFavorite: false,
       experience: "Trabalhou por 3 anos como assistente administrativa, responsável por controle de documentos, suporte à gerência e atendimento telefônico. Antes disso, foi recepcionista por 1 ano.",
-      curriculumUrl: "curriculo_maria_silva.pdf"
+      curriculumUrl: "curriculo_maria_silva.pdf",
+      contactStatus: "none"
     },
     {
       id: "2",
@@ -72,7 +84,8 @@ const DashboardPage = () => {
       registerDate: "20/05/2025",
       isFavorite: false,
       experience: "Recém-formado em Análise e Desenvolvimento de Sistemas. Possui conhecimentos em React, Node.js e banco de dados. Realizou projetos acadêmicos e estágios.",
-      curriculumUrl: "curriculo_joao_oliveira.pdf"
+      curriculumUrl: "curriculo_joao_oliveira.pdf",
+      contactStatus: "none"
     },
     {
       id: "3",
@@ -85,7 +98,9 @@ const DashboardPage = () => {
       registerDate: "18/05/2025",
       isFavorite: true,
       experience: "5 anos de experiência em vendas no varejo. Especialista em atendimento ao cliente e metas de vendas. Busca novos desafios na área comercial.",
-      curriculumUrl: "curriculo_ana_souza.pdf"
+      curriculumUrl: "curriculo_ana_souza.pdf",
+      contactStatus: "contacted",
+      contactedBy: "teste@minc.com.br"
     },
     {
       id: "4",
@@ -98,7 +113,8 @@ const DashboardPage = () => {
       registerDate: "22/05/2025",
       isFavorite: false,
       experience: "4 anos de experiência em logística e distribuição. Conhecimento em gestão de estoque e transporte. Certificação em operação de empilhadeira.",
-      curriculumUrl: "curriculo_carlos_mendes.pdf"
+      curriculumUrl: "curriculo_carlos_mendes.pdf",
+      contactStatus: "none"
     },
     {
       id: "5",
@@ -111,7 +127,8 @@ const DashboardPage = () => {
       registerDate: "25/05/2025",
       isFavorite: false,
       experience: "Técnica em enfermagem com 6 anos de experiência. Trabalhou em hospitais e clínicas. Busca oportunidade de crescimento profissional.",
-      curriculumUrl: "curriculo_juliana_costa.pdf"
+      curriculumUrl: "curriculo_juliana_costa.pdf",
+      contactStatus: "none"
     },
     {
       id: "6",
@@ -124,8 +141,37 @@ const DashboardPage = () => {
       registerDate: "28/05/2025",
       isFavorite: true,
       experience: "Recém-formado em Pedagogia. Possui experiência em estágios supervisionados e projetos educacionais. Busca primeira oportunidade como professor.",
-      curriculumUrl: "curriculo_pedro_santos.pdf"
+      curriculumUrl: "curriculo_pedro_santos.pdf",
+      contactStatus: "none"
     },
+    {
+      id: "7",
+      name: "Fernanda Lima",
+      email: "fernanda.lima@email.com",
+      phone: "(11) 91111-2345",
+      city: "São Paulo, SP",
+      area: "Marketing",
+      status: "Desempregado",
+      registerDate: "30/05/2025",
+      isFavorite: false,
+      experience: "3 anos de experiência em marketing digital e gestão de redes sociais. Conhecimento em Google Ads e Facebook Ads.",
+      curriculumUrl: "curriculo_fernanda_lima.pdf",
+      contactStatus: "none"
+    },
+    {
+      id: "8",
+      name: "Ricardo Moura",
+      email: "ricardo.moura@email.com",
+      phone: "(11) 98888-7777",
+      city: "São Paulo, SP",
+      area: "Financeiro",
+      status: "Empregado insatisfeito",
+      registerDate: "02/06/2025",
+      isFavorite: false,
+      experience: "5 anos de experiência em controladoria e análise financeira. Formação em Ciências Contábeis.",
+      curriculumUrl: "curriculo_ricardo_moura.pdf",
+      contactStatus: "none"
+    }
   ]);
 
   useEffect(() => {
@@ -176,7 +222,10 @@ const DashboardPage = () => {
     }
   };
 
-  const filteredCandidates = candidates.filter(candidate => {
+  // Filtrar candidatos contratados
+  const availableCandidates = candidates.filter(candidate => candidate.contactStatus !== "hired");
+  
+  const filteredCandidates = availableCandidates.filter(candidate => {
     const matchesSearch = candidate.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          candidate.email.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesArea = !areaFilter || areaFilter === "all-areas" || candidate.area === areaFilter;
@@ -186,6 +235,11 @@ const DashboardPage = () => {
     return matchesSearch && matchesArea && matchesStatus && matchesFavorites;
   });
 
+  // Paginação
+  const totalPages = Math.ceil(filteredCandidates.length / candidatesPerPage);
+  const startIndex = (currentPage - 1) * candidatesPerPage;
+  const paginatedCandidates = filteredCandidates.slice(startIndex, startIndex + candidatesPerPage);
+
   const clearFilters = () => {
     setAreaFilter("all-areas");
     setStatusFilter("all-situations");
@@ -193,6 +247,14 @@ const DashboardPage = () => {
   };
 
   const handleContactCandidate = (candidateId: string) => {
+    setCandidates(prev => 
+      prev.map(candidate => 
+        candidate.id === candidateId 
+          ? { ...candidate, contactStatus: "contacted", contactedBy: userEmail }
+          : candidate
+      )
+    );
+    setSelectedCandidate(null);
     toast({
       title: "Contato registrado",
       description: "Marcado como 'Entrei em contato' com sucesso.",
@@ -200,10 +262,35 @@ const DashboardPage = () => {
   };
 
   const handleHireCandidate = (candidateId: string) => {
+    setCandidates(prev => 
+      prev.map(candidate => 
+        candidate.id === candidateId 
+          ? { ...candidate, contactStatus: "hired", contactedBy: userEmail }
+          : candidate
+      )
+    );
+    setSelectedCandidate(null);
     toast({
       title: "Contratação registrada",
       description: "Candidato marcado como contratado!",
       variant: "default",
+    });
+  };
+
+  const handleEditProfile = () => {
+    setShowMenuDropdown(false);
+    setShowProfileEdit(true);
+  };
+
+  const updateProfile = (newName: string, newEmail: string) => {
+    setUserName(newName);
+    setUserEmail(newEmail);
+    localStorage.setItem("userName", newName);
+    localStorage.setItem("userEmail", newEmail);
+    setShowProfileEdit(false);
+    toast({
+      title: "Perfil atualizado",
+      description: "Suas informações foram atualizadas com sucesso.",
     });
   };
 
@@ -223,14 +310,41 @@ const DashboardPage = () => {
               </div>
             </div>
             
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 relative">
               <Button variant="ghost" size="sm" onClick={handleLogout}>
                 <LogOut className="w-4 h-4 mr-2" />
                 Sair
               </Button>
-              <Button variant="ghost" size="sm">
-                <MoreHorizontal className="w-4 h-4" />
-              </Button>
+              <div className="relative">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={() => setShowMenuDropdown(!showMenuDropdown)}
+                >
+                  <MoreHorizontal className="w-4 h-4" />
+                </Button>
+                
+                {showMenuDropdown && (
+                  <div className="absolute right-0 mt-2 w-48 bg-card border border-border rounded-md shadow-lg z-50">
+                    <div className="py-1">
+                      <button
+                        onClick={handleEditProfile}
+                        className="flex items-center px-4 py-2 text-sm text-foreground hover:bg-muted w-full"
+                      >
+                        <Edit className="w-4 h-4 mr-2" />
+                        Editar Perfil
+                      </button>
+                      <button
+                        onClick={handleLogout}
+                        className="flex items-center px-4 py-2 text-sm text-foreground hover:bg-muted w-full"
+                      >
+                        <LogOut className="w-4 h-4 mr-2" />
+                        Sair
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -313,10 +427,12 @@ const DashboardPage = () => {
 
         {/* Candidates Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredCandidates.map((candidate) => (
+          {paginatedCandidates.map((candidate) => (
             <Card 
               key={candidate.id} 
-              className="cursor-pointer hover:shadow-lg transition-shadow relative"
+              className={`cursor-pointer hover:shadow-lg transition-shadow relative ${
+                candidate.contactStatus === "contacted" ? "border-2 border-blue-500" : ""
+              }`}
               onClick={() => setSelectedCandidate(candidate)}
             >
               <CardContent className="p-6">
@@ -345,10 +461,15 @@ const DashboardPage = () => {
                   </div>
                 </div>
 
-                <div className="mb-4">
+                <div className="flex flex-wrap gap-2 mb-4">
                   <Badge className={`${getStatusBadgeColor(candidate.status)} border`}>
                     {candidate.status}
                   </Badge>
+                  {candidate.contactStatus === "contacted" && (
+                    <Badge className="bg-blue-100 text-blue-700 border-blue-200 border">
+                      Empresa interessada
+                    </Badge>
+                  )}
                 </div>
 
                 <div className="text-xs text-muted-foreground">
@@ -361,13 +482,36 @@ const DashboardPage = () => {
 
         {/* Pagination */}
         <div className="flex justify-center items-center gap-2 mt-8">
-          <Button variant="outline" size="sm">Anterior</Button>
-          <Button variant="default" size="sm">1</Button>
-          <Button variant="outline" size="sm">2</Button>
-          <Button variant="outline" size="sm">3</Button>
-          <span className="text-muted-foreground">...</span>
-          <Button variant="outline" size="sm">10</Button>
-          <Button variant="outline" size="sm">Próximo</Button>
+          <Button 
+            variant="outline" 
+            size="sm"
+            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+          >
+            <ChevronLeft className="w-4 h-4 mr-1" />
+            Anterior
+          </Button>
+          
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+            <Button
+              key={page}
+              variant={currentPage === page ? "default" : "outline"}
+              size="sm"
+              onClick={() => setCurrentPage(page)}
+            >
+              {page}
+            </Button>
+          ))}
+          
+          <Button 
+            variant="outline" 
+            size="sm"
+            onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+            disabled={currentPage === totalPages}
+          >
+            Próximo
+            <ChevronRight className="w-4 h-4 ml-1" />
+          </Button>
         </div>
       </div>
 
@@ -463,6 +607,59 @@ const DashboardPage = () => {
                 Contratei
               </Button>
             </div>
+          </DialogContent>
+        </Dialog>
+      )}
+      
+      {/* Profile Edit Modal */}
+      {showProfileEdit && (
+        <Dialog open={showProfileEdit} onOpenChange={() => setShowProfileEdit(false)}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle>Editar Perfil</DialogTitle>
+            </DialogHeader>
+            
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              const formData = new FormData(e.target as HTMLFormElement);
+              const newName = formData.get("name") as string;
+              const newEmail = formData.get("email") as string;
+              updateProfile(newName, newEmail);
+            }}>
+              <div className="space-y-4">
+                <div>
+                  <label className="text-sm font-medium text-foreground">Nome</label>
+                  <Input 
+                    name="name"
+                    defaultValue={userName}
+                    required
+                    className="mt-1"
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-foreground">Email</label>
+                  <Input 
+                    name="email"
+                    type="email"
+                    defaultValue={userEmail}
+                    required
+                    className="mt-1"
+                  />
+                </div>
+                <div className="flex justify-end gap-2 pt-4">
+                  <Button 
+                    type="button" 
+                    variant="outline" 
+                    onClick={() => setShowProfileEdit(false)}
+                  >
+                    Cancelar
+                  </Button>
+                  <Button type="submit">
+                    Salvar
+                  </Button>
+                </div>
+              </div>
+            </form>
           </DialogContent>
         </Dialog>
       )}
