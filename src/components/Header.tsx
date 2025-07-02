@@ -18,7 +18,7 @@ const Header = () => {
           <nav className="flex items-center justify-between">
             {/* Logo */}
             <Link to="/" className="text-xl font-bold text-primary">
-              Desemprego Zero
+              Desemprego Zero | Minha Igreja na Cidade
             </Link>
 
             {/* Navigation Links */}

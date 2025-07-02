@@ -7,7 +7,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Logo e Descrição */}
           <div className="md:col-span-2">
-            <h3 className="text-2xl font-bold mb-4">Desemprego Zero</h3>
+            <h3 className="text-2xl font-bold mb-4">Desemprego Zero | Minha Igreja na Cidade</h3>
             <p className="text-background/80 mb-4 max-w-md">
               Uma iniciativa da Minha Igreja na Cidade que conecta pessoas a oportunidades 
               de trabalho digno, transformando vidas através do emprego.

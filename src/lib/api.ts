@@ -2,9 +2,7 @@ import axios from 'axios';
 
 // Configuração do axios para conexão com backend Go
 const api = axios.create({
-  baseURL: process.env.NODE_ENV === 'production' 
-    ? 'https://your-go-backend.com/api' 
-    : 'http://localhost:8080/api',
+  baseURL: 'https://desemprego-zero.onrender.com',
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
@@ -80,14 +78,39 @@ export const employmentAPI = {
     return response.data;
   },
 
-  // Autenticação
+  // Autenticação 
   login: async (email: string, password: string) => {
-    const response = await api.post('/auth/login', { email, password });
+    const response = await api.post('/admin/login', { email, password });
     return response.data;
   },
 
-  register: async (userData: any) => {
-    const response = await api.post('/auth/register', userData);
+  // Buscar vaga específica
+  getJob: async (jobId: string) => {
+    const response = await api.get(`/jobs/${jobId}`);
+    return response.data;
+  },
+
+  // Atualizar vaga
+  updateJob: async (jobId: string, jobData: any) => {
+    const response = await api.put(`/jobs/${jobId}`, jobData);
+    return response.data;
+  },
+
+  // Deletar vaga
+  deleteJob: async (jobId: string) => {
+    const response = await api.delete(`/jobs/${jobId}`);
+    return response.data;
+  },
+
+  // Cadastrar candidato
+  registerCandidate: async (candidateData: any) => {
+    const response = await api.post('/candidates', candidateData);
+    return response.data;
+  },
+
+  // Buscar candidatos
+  getCandidates: async () => {
+    const response = await api.get('/candidates');
     return response.data;
   },
 };
