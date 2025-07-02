@@ -13,12 +13,11 @@ const HowItWorksSection = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {/* Passo 1 */}
-          <div className="text-center">
+          <div className="bg-card rounded-lg p-6 shadow-sm border border-border text-center">
             <div className="relative mb-6">
               <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto">
                 <span className="text-3xl font-bold text-primary-foreground">1</span>
               </div>
-              <div className="hidden md:block absolute top-10 left-full w-full h-0.5 bg-primary/30 -translate-y-1/2"></div>
             </div>
             <h3 className="text-2xl font-semibold mb-4 text-foreground">Cadastre-se</h3>
             <p className="text-muted-foreground">
@@ -27,12 +26,11 @@ const HowItWorksSection = () => {
           </div>
 
           {/* Passo 2 */}
-          <div className="text-center">
+          <div className="bg-card rounded-lg p-6 shadow-sm border border-border text-center">
             <div className="relative mb-6">
               <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto">
                 <span className="text-3xl font-bold text-primary-foreground">2</span>
               </div>
-              <div className="hidden md:block absolute top-10 left-full w-full h-0.5 bg-primary/30 -translate-y-1/2"></div>
             </div>
             <h3 className="text-2xl font-semibold mb-4 text-foreground">Encontre Vagas</h3>
             <p className="text-muted-foreground">
@@ -41,7 +39,7 @@ const HowItWorksSection = () => {
           </div>
 
           {/* Passo 3 */}
-          <div className="text-center">
+          <div className="bg-card rounded-lg p-6 shadow-sm border border-border text-center">
             <div className="relative mb-6">
               <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto">
                 <span className="text-3xl font-bold text-primary-foreground">3</span>

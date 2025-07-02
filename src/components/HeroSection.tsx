@@ -40,7 +40,7 @@ const HeroSection = () => {
                 size="lg" 
                 variant="outline-white"
                 className="font-semibold px-8"
-                onClick={() => navigate("/parceiros")}
+                onClick={() => navigate("/contato")}
               >
                 Seja um parceiro
               </Button>

@@ -34,20 +34,20 @@ const StatsSection = () => {
   }, []);
 
   return (
-    <section className="py-16 bg-stats-bg">
+    <section className="py-16 bg-background">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-          <div className="bg-white rounded-lg p-8 shadow-sm">
+          <div className="bg-card rounded-lg p-8 shadow-[0_8px_32px_-8px_hsl(var(--muted))]">
             <div className="text-6xl font-bold text-stats-text mb-2">0</div>
             <div className="text-gray-600 font-medium">Pessoas empregadas</div>
           </div>
           
-          <div className="bg-white rounded-lg p-8 shadow-sm">
+          <div className="bg-card rounded-lg p-8 shadow-[0_8px_32px_-8px_hsl(var(--muted))]">
             <div className="text-6xl font-bold text-stats-text mb-2">0</div>
             <div className="text-gray-600 font-medium">Empresas parceiras</div>
           </div>
           
-          <div className="bg-white rounded-lg p-8 shadow-sm">
+          <div className="bg-card rounded-lg p-8 shadow-[0_8px_32px_-8px_hsl(var(--muted))]">
             <div className="text-6xl font-bold text-stats-text mb-2">0</div>
             <div className="text-gray-600 font-medium">Taxa de satisfação (%)</div>
           </div>

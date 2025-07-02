@@ -23,12 +23,6 @@ const Header = () => {
 
             {/* Navigation Links */}
             <div className="hidden md:flex items-center space-x-8">
-              <a 
-                href="#"
-                className="text-foreground hover:text-primary transition-colors"
-              >
-                Minha Igreja na Cidade
-              </a>
               <button 
                 onClick={() => {
                   document.getElementById('how-it-works-section')?.scrollIntoView({ 

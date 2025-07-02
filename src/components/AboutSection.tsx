@@ -14,7 +14,7 @@ const AboutSection = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
             <div className="text-center">
               <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl text-primary-foreground">🤝</span>
+                <span className="text-2xl text-primary-foreground">⚡</span>
               </div>
               <h3 className="text-xl font-semibold mb-2 text-foreground">Conexão</h3>
               <p className="text-muted-foreground">
@@ -23,7 +23,7 @@ const AboutSection = () => {
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl text-primary-foreground">❤️</span>
+                <span className="text-2xl text-primary-foreground">🎯</span>
               </div>
               <h3 className="text-xl font-semibold mb-2 text-foreground">Propósito</h3>
               <p className="text-muted-foreground">
@@ -32,7 +32,7 @@ const AboutSection = () => {
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl text-primary-foreground">🌟</span>
+                <span className="text-2xl text-primary-foreground">💎</span>
               </div>
               <h3 className="text-xl font-semibold mb-2 text-foreground">Impacto</h3>
               <p className="text-muted-foreground">

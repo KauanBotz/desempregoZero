@@ -90,12 +90,9 @@ const PartnersSection = () => {
             Sua empresa pode fazer parte desta iniciativa social e ajudar a transformar vidas 
             através do trabalho digno. Junte-se a nós nesta missão!
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg">
+          <div className="flex justify-center">
+            <Button size="lg" onClick={() => window.location.href = '/contato'}>
               Quero ser Parceiro
-            </Button>
-            <Button size="lg" variant="outline">
-              Saiba Mais
             </Button>
           </div>
         </div>
