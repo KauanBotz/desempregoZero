@@ -65,13 +65,6 @@ const LoginModal = ({ isOpen, onClose, onLogin }: LoginModalProps) => {
               required
             />
           </div>
-
-          <div className="text-xs text-muted-foreground bg-muted p-3 rounded-md">
-            <strong>Login de teste:</strong><br />
-            Email: admin@example.com<br />
-            Senha: admin
-          </div>
-
           <Button 
             type="submit" 
             className="w-full" 

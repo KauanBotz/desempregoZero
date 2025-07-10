@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Phone, Mail, MapPin, Clock, Instagram, Youtube, Music, FacebookIcon } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -13,7 +14,7 @@ const Footer = () => {
               de trabalho digno, transformando vidas através do emprego.
             </p>
             <div className="text-background/60 text-sm">
-              © 2024 Desemprego Zero. Todos os direitos reservados.
+              © 2025 Minha Igreja na Cidade. Todos os direitos reservados.
             </div>
           </div>
 
@@ -23,7 +24,7 @@ const Footer = () => {
             <ul className="space-y-2">
               <li>
                 <Link 
-                  to="/como-funciona" 
+                  to="/#how-it-works"
                   className="text-background/80 hover:text-background transition-colors"
                 >
                   Como Funciona
@@ -31,7 +32,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link 
-                  to="/depoimentos" 
+                  to="/#testimonials"
                   className="text-background/80 hover:text-background transition-colors"
                 >
                   Depoimentos
@@ -56,34 +57,31 @@ const Footer = () => {
             </ul>
           </div>
 
+
           {/* Contato */}
           <div>
             <h4 className="text-lg font-semibold mb-4">Contato</h4>
             <div className="space-y-2 text-background/80">
-              <p>📧 contato@desempregozero.com</p>
-              <p>📱 (11) 9999-9999</p>
-              <p>📍 São Paulo, SP</p>
+              <p> contato@desempregozero.com</p>
+              <p> (31) 9999-9999</p>
+              <p> Alameda das Latanias, 1195 <br></br> São Luiz,  Belo Horizonte - MG</p>
             </div>
             
             <div className="mt-6">
               <h5 className="font-semibold mb-2">Siga-nos</h5>
               <div className="flex space-x-4">
                 <a href="#" className="text-background/80 hover:text-background transition-colors">
-                  Facebook
+                  <FacebookIcon className="h-6 w-6" />
                 </a>
                 <a href="#" className="text-background/80 hover:text-background transition-colors">
-                  Instagram
+                  <Instagram className="h-6 w-6" />
                 </a>
                 <a href="#" className="text-background/80 hover:text-background transition-colors">
-                  LinkedIn
+                  <Music className="h-6 w-6" />
                 </a>
               </div>
             </div>
           </div>
-        </div>
-
-        <div className="border-t border-background/20 mt-8 pt-8 text-center text-background/60 text-sm">
-          <p>Desenvolvido com ❤️ para transformar vidas através do trabalho digno</p>
         </div>
       </div>
     </footer>

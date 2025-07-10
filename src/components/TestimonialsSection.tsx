@@ -20,19 +20,19 @@ const TestimonialsSection = () => {
         setTestimonials([
           {
             id: "1",
-            name: "Maria Silva",
-            role: "Assistente Administrativa",
-            company: "Empresa ABC",
+            name: "Armindo Silva",
+            role: "Programador Frontend",
+            company: "ABC Tecnologia",
             message: "Através do Desemprego Zero consegui uma oportunidade incrível. Hoje tenho estabilidade e posso sustentar minha família.",
-            photo: "https://images.unsplash.com/photo-1494790108755-2616b612b691?w=150&h=150&fit=crop&crop=face"
+            photo: "https://jornaltribuna.com.br/wp-content/uploads/2021/01/IMG_20201226_100528-e1609610188235-1024x1024.jpg"
           },
           {
             id: "2",
             name: "João Santos",
-            role: "Operador de Máquinas",
-            company: "Indústria XYZ",
+            role: "Enfermeiro",
+            company: "Hospital XYZ",
             message: "Estava desempregado há 8 meses. Em apenas 2 semanas após me cadastrar, já estava trabalhando novamente!",
-            photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
+            photo: "/imagem2.jpg"
           },
           {
             id: "3",
@@ -40,7 +40,7 @@ const TestimonialsSection = () => {
             role: "Vendedora",
             company: "Loja 123",
             message: "O projeto me deu uma segunda chance. Hoje sou líder de vendas e exemplo para outras pessoas.",
-            photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face"
+            photo: "/imagem1.jpg"
           }
         ]);
       } catch (error) {

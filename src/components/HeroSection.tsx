@@ -18,7 +18,7 @@ const HeroSection = () => {
 
             {/* Title */}
             <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-              Desemprego Zero
+              Desemprego Zero | Minha Igreja na Cidade
             </h1>
 
             {/* Subtitle */}
